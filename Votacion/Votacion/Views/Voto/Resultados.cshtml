@@ -1,0 +1,87 @@
+﻿@model List<VotacionObjetos.ViewModels.ResultadoViewModel>
+
+@{
+    ViewData["Title"] = "Resultados Electorales";
+    int totalVotos = Model.Sum(r => r.CantidadVotos);
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-chart-bar"></i> Resultados Electorales
+                    </h4>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @ViewBag.Error
+                        </div>
+                    }
+                    else if (Model.Any())
+                    {
+                        <div class="mb-3">
+                            <h5>Total de votos registrados: <span class="badge bg-primary">@totalVotos</span></h5>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Partido Político</th>
+                                        <th class="text-center">Cantidad de Votos</th>
+                                        <th class="text-center">Porcentaje</th>
+                                        <th>Representación Visual</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var resultado in Model.OrderByDescending(r => r.CantidadVotos))
+                                    {
+                                        var porcentaje = totalVotos > 0 ? Math.Round(((double)resultado.CantidadVotos / totalVotos) * 100, 1) : 0;
+                                        <tr>
+                                            <td><strong>@resultado.NombrePartido</strong></td>
+                                            <td class="text-center">
+                                                <span class="badge bg-success fs-6">@resultado.CantidadVotos</span>
+                                            </td>
+                                            <td class="text-center">@porcentaje%</td>
+                                            <td>
+                                                <div class="progress" style="height: 25px;">
+                                                    <div class="progress-bar"
+                                                         role="progressbar"
+                                                         style="width: @porcentaje%"
+                                                         aria-valuenow="@porcentaje"
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100">
+                                                        @if (porcentaje > 0)
+                                                        {
+                                                            <span>@porcentaje%</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning text-center" role="alert">
+                            <i class="fas fa-info-circle"></i> No hay votos registrados aún
+                        </div>
+                    }
+
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" class="btn btn-primary">
+                            <i class="fas fa-vote-yea"></i> Ir a Votar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Votación Electoral";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Sistema de Votación Electoral</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Index" method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                        <div class="form-group mb-3">
+                            <label for="cedulaVotante" class="form-label">Número de Cédula:</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="cedulaVotante"
+                                   name="cedulaVotante"
+                                   placeholder="Ingrese su número de cédula"
+                                   required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="partidoId" class="form-label">Seleccione el Partido:</label>
+                            <select class="form-control" id="partidoId" name="partidoId" required>
+                                <option value="">-- Seleccione un partido --</option>
+                                @if (ViewBag.Partidos != null)
+                                {
+                                    @foreach (var partido in (List<VotacionObjetos.ViewModels.PartidoViewModel>)ViewBag.Partidos)
+                                    {
+                                        <option value="@partido.Id">@partido.Nombre</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-vote-yea"></i> VOTAR
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mt-3 text-center">
+                <a asp-action="Resultados" class="btn btn-info">Ver Resultados</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Validación básica del lado del cliente
+    document.querySelector('form').addEventListener('submit', function(e) {
+        var cedula = document.getElementById('cedulaVotante').value;
+        var partido = document.getElementById('partidoId').value;
+
+        if (!cedula || !partido) {
+            e.preventDefault();
+            alert('Por favor complete todos los campos');
+        }
+    });
+</script>

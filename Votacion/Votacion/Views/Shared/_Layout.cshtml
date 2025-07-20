@@ -36,10 +36,14 @@
                                 Partidos
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Votos
                             </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-controller="Voto" asp-action="Index">Votar</a></li>
+                                <li><a class="dropdown-item" asp-controller="Voto" asp-action="Resultados">Ver Resultados</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

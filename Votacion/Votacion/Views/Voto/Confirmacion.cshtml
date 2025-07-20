@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Voto Registrado";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white text-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-check-circle"></i> ¡Voto Registrado Exitosamente!
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-vote-yea text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h5 class="text-success mb-3">Su voto ha sido registrado correctamente</h5>
+                    <p class="text-muted">
+                        Gracias por participar en el proceso electoral.
+                        Su voto ha sido contabilizado y registrado en el sistema.
+                    </p>
+                    <hr>
+                    <div class="d-grid gap-2">
+                        <a asp-action="Resultados" class="btn btn-primary">
+                            <i class="fas fa-chart-bar"></i> Ver Resultados
+                        </a>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left"></i> Volver al Inicio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
