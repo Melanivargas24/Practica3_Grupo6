@@ -1,51 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace VotacionDAL.Repositories.Votante
 {
     public class VotanteRepository : IVotanteRepository
     {
         private readonly VotacionContext _context;
-        private readonly HttpClient _httpClient;
 
-        public VotanteRepository(VotacionContext context, HttpClient httpClient)
+        public VotanteRepository(VotacionContext context)
         {
             _context = context;
-            _httpClient = httpClient;
         }
 
         public async Task<List<VotacionObjetos.Models.Votante>> ObtenerTodosAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<VotacionObjetos.Models.Votante>>("/api/Votantes");
+            return await _context.Votantes.ToListAsync();
         }
 
         public async Task<VotacionObjetos.Models.Votante> ObtenerPorCedulaAsync(string cedula)
         {
-            return await _context.Votantes.FindAsync(cedula);
+            return await _context.Votantes.FirstOrDefaultAsync(v => v.Cedula == cedula);
         }
 
         public async Task<VotacionObjetos.Models.Votante> CrearAsync(VotacionObjetos.Models.Votante votante)
         {
-            var response = await _httpClient.PostAsJsonAsync("/api/Votante", votante);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<VotacionObjetos.Models.Votante>();
+            // Verificar si ya existe un votante con esa cedula
+            var existente = await _context.Votantes.FindAsync(votante.Cedula);
+            if (existente != null)
+            {
+                throw new InvalidOperationException("Ya existe un votante con esa cedula");
+            }
+
+            _context.Votantes.Add(votante);
+            await _context.SaveChangesAsync();
+            return votante;
         }
 
         public async Task<bool> EliminarAsync(string cedula)
         {
-            var response = await _httpClient.DeleteAsync($"/api/Votante/{cedula}");
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<bool>();
+            var votante = await _context.Votantes.FindAsync(cedula);
+            if (votante == null)
+                return false;
+
+            _context.Votantes.Remove(votante);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<VotacionObjetos.Models.Votante> ActualizarAsync(VotacionObjetos.Models.Votante votante)
         {
             var existente = await _context.Votantes.FindAsync(votante.Cedula);
-            if (existente == null) return null;
+            if (existente == null)
+                return null;
 
             _context.Entry(existente).CurrentValues.SetValues(votante);
             await _context.SaveChangesAsync();

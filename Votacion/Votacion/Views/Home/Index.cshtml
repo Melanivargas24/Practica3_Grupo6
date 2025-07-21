@@ -1,8 +1,115 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Sistema de Votación";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> @ViewBag.Error
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    <div class="row">
+        <div class="col-12">
+            <div class="jumbotron text-center">
+                <h1 class="display-4">Sistema de Votación</h1>
+                <p class="lead">Bienvenido al sistema de gestión de votación. Aquí puede administrar votantes, partidos y votos.</p>
+                <hr class="my-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">Gestión de Votantes</h5>
+                    <p class="card-text">Administre la información de los votantes registrados en el sistema.</p>
+                    <a asp-controller="Votante" asp-action="Index" class="btn btn-primary">
+                        <i class="fas fa-users"></i> Gestionar Votantes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-flag fa-3x text-success mb-3"></i>
+                    <h5 class="card-title">Gestión de Partidos</h5>
+                    <p class="card-text">Administre los partidos políticos disponibles para votación.</p>
+                    <a href="#" class="btn btn-success">
+                        <i class="fas fa-flag"></i> Gestionar Partidos
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-vote-yea fa-3x text-warning mb-3"></i>
+                    <h5 class="card-title">Gestión de Votos</h5>
+                    <p class="card-text">Visualice y administre los votos emitidos en el sistema.</p>
+                    <a href="#" class="btn btn-warning">
+                        <i class="fas fa-vote-yea"></i> Gestionar Votos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-chart-bar"></i> Estadísticas Rápidas
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h3 class="text-primary" id="totalVotantes">-</h3>
+                                <p class="text-muted">Total Votantes</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h3 class="text-success" id="votantesQueVotaron">-</h3>
+                                <p class="text-muted">Ya Votaron</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h3 class="text-warning" id="votantesPendientes">-</h3>
+                                <p class="text-muted">Pendientes</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h3 class="text-info" id="totalPartidos">-</h3>
+                                <p class="text-muted">Partidos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Cargar estadísticas desde el servidor
+            $('#totalVotantes').text('@(ViewBag.VotantesCount ?? 0)');
+            $('#votantesQueVotaron').text('0');
+            $('#votantesPendientes').text('0');
+            $('#totalPartidos').text('0');
+        });
+    </script>
+}

@@ -16,8 +16,7 @@ namespace VotacionObjetos.ViewModels
 
         public DateTime? FechaNacimiento { get; set; }
 
-        public bool SiVoto { get; set; }
-
+        public bool SiVoto { get; set; } = false;
 
         public int? VotoId { get; set; }
 

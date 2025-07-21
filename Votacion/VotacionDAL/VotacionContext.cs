@@ -21,12 +21,6 @@ namespace VotacionDAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Votante>()
-                .HasOne(v => v.Voto)
-                .WithOne(vt => vt.Votante)
-                .HasForeignKey<Voto>(vt => vt.CedulaVotante)
-                .OnDelete(DeleteBehavior.Restrict);
-
             modelBuilder.Entity<Partido>()
                 .HasMany(p => p.Votos)
                 .WithOne(v => v.Partido)

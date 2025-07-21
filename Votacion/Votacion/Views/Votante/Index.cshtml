@@ -1,0 +1,64 @@
+@model IEnumerable<VotacionObjetos.ViewModels.VotanteViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Votantes";
+}
+
+<h2>Lista de Votantes</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Agregar Nuevo Votante</a>
+</p>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Mensaje"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cedula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha Nacimiento</th>
+            <th>Ya Voto</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Cedula</td>
+                <td>@item.Nombre</td>
+                <td>@item.Apellido</td>
+                <td>@(item.FechaNacimiento?.ToString("dd/MM/yyyy") ?? "No especificada")</td>
+                <td>
+                    @if (item.SiVoto)
+                    {
+                        <span class="badge bg-success">Si</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning">No</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Cedula" class="btn btn-info btn-sm">Ver</a>
+                    <a asp-action="Edit" asp-route-id="@item.Cedula" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.Cedula" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> 

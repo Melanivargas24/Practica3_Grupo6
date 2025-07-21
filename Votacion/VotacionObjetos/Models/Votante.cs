@@ -21,10 +21,6 @@ namespace VotacionObjetos.Models
 
         public DateTime? FechaNacimiento { get; set; }
 
-        public bool SiVoto { get; set; }
-
-
-        public virtual Voto Voto { get; set; }
+        public bool SiVoto { get; set; } = false;
     }
-
 }

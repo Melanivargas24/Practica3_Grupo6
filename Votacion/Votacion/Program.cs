@@ -16,14 +16,15 @@ builder.Services.AddControllersWithViews();
 
 // Configurar DbContext
 builder.Services.AddDbContext<VotacionContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), 
+        b => b.MigrationsAssembly("VotacionDAL")));
 
-// Inyección de dependencias - Repositorios
+// Inyecciï¿½n de dependencias - Repositorios
 builder.Services.AddScoped<IPartidoRepository, PartidoRepository>();
 builder.Services.AddScoped<IVotoRepository, VotoRepository>();
 builder.Services.AddScoped<IVotanteRepository, VotanteRepository>();
 
-// Inyección de dependencias - Servicios
+// Inyecciï¿½n de dependencias - Servicios
 builder.Services.AddScoped<IPartidoService, PartidoService>();
 builder.Services.AddScoped<IVotoService, VotoService>();
 builder.Services.AddScoped<IVotanteService, VotanteService>();
@@ -35,7 +36,7 @@ builder.Services.AddHttpClient();
 var app = builder.Build();
 
 
-// Configuración del pipeline HTTP
+// Configuraciï¿½n del pipeline HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
