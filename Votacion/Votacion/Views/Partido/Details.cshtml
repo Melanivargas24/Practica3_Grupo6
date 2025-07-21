@@ -1,0 +1,24 @@
+﻿@model VotacionObjetos.ViewModels.PartidoViewModel
+
+@{
+    ViewData["Title"] = "Detalles del Partido";
+}
+
+<h2>Detalles del Partido</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">@Model.Id</dd>
+
+        <dt class="col-sm-3">Nombre</dt>
+        <dd class="col-sm-9">@Model.Nombre</dd>
+
+        <dt class="col-sm-3">Cantidad de Votos</dt>
+        <dd class="col-sm-9">@Model.CantidadVotos</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</div>

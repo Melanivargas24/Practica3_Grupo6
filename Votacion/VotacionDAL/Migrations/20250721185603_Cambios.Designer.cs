@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VotacionDAL;
 
@@ -11,9 +12,11 @@ using VotacionDAL;
 namespace VotacionDAL.Migrations
 {
     [DbContext(typeof(VotacionContext))]
-    partial class VotacionContextModelSnapshot : ModelSnapshot
+    [Migration("20250721185603_Cambios")]
+    partial class Cambios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

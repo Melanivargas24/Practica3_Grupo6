@@ -10,4 +10,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VotacionBLL\VotacionBLL.csproj" />
+    <ProjectReference Include="..\VotacionDAL\VotacionDAL.csproj" />
+    <ProjectReference Include="..\VotacionObjetos\VotacionObjetos.csproj" />
+    <ProjectReference Include="..\Votacion\Votacion.csproj" />
+  </ItemGroup>
+
 </Project>

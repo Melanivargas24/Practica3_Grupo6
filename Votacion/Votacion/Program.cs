@@ -31,7 +31,11 @@ builder.Services.AddScoped<IVotanteService, VotanteService>();
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MapeoClases>());
 
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("API", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7297/api/"); 
+});
+
 
 var app = builder.Build();
 
