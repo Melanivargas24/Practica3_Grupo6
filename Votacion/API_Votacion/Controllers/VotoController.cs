@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VotacionBLL.Services.Voto;
-using VotacionObjetos.ViewModelos;
+using VotacionObjetos.ViewModels;
 
 namespace API_Votacion.Controllers
 {

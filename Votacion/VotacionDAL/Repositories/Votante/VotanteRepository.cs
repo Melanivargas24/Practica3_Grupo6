@@ -28,7 +28,6 @@ namespace VotacionDAL.Repositories.Votante
 
         public async Task<VotacionObjetos.Models.Votante> CrearAsync(VotacionObjetos.Models.Votante votante)
         {
-            // Verificar si ya existe un votante con esa cedula
             var existente = await _context.Votantes.FindAsync(votante.Cedula);
             if (existente != null)
             {
@@ -42,13 +41,34 @@ namespace VotacionDAL.Repositories.Votante
 
         public async Task<bool> EliminarAsync(string cedula)
         {
-            var votante = await _context.Votantes.FindAsync(cedula);
-            if (votante == null)
-                return false;
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var votante = await _context.Votantes.FindAsync(cedula);
+                if (votante == null)
+                    return false;
 
-            _context.Votantes.Remove(votante);
-            await _context.SaveChangesAsync();
-            return true;
+                var votosAsociados = await _context.Votos
+                    .Where(v => v.CedulaVotante == cedula)
+                    .ToListAsync();
+
+                if (votosAsociados.Any())
+                {
+                    _context.Votos.RemoveRange(votosAsociados);
+                    await _context.SaveChangesAsync();
+                }
+
+                _context.Votantes.Remove(votante);
+                await _context.SaveChangesAsync();
+
+                await transaction.CommitAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
 
         public async Task<VotacionObjetos.Models.Votante> ActualizarAsync(VotacionObjetos.Models.Votante votante)

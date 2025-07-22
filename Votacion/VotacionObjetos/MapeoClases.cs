@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using VotacionObjetos.Models;
-using VotacionObjetos.ViewModelos;
 using VotacionObjetos.ViewModels;
 
 namespace VotacionObjetos
@@ -14,19 +13,14 @@ namespace VotacionObjetos
     {
         public MapeoClases()
         {
-            
-            CreateMap<Votante, VotanteViewModel>().ReverseMap();
-
+            // Mapeo de Partido
             CreateMap<Partido, PartidoViewModel>().ReverseMap();
 
-            CreateMap<Voto, VotoViewModel>()
-                .ForMember(dest => dest.NombreVotante, opt => opt.MapFrom(src => src.Votante.Nombre))
-                .ForMember(dest => dest.NombrePartido, opt => opt.MapFrom(src => src.Partido.Nombre));
+            // Mapeo de Votante
+            CreateMap<Votante, VotanteViewModel>().ReverseMap();
 
-            CreateMap<VotoViewModel, Voto>()
-                .ForMember(dest => dest.Votante, opt => opt.Ignore())
-                .ForMember(dest => dest.Partido, opt => opt.Ignore());
+            // Mapeo de Voto
+            CreateMap<Voto, VotoViewModel>().ReverseMap();
         }
     }
-
 }

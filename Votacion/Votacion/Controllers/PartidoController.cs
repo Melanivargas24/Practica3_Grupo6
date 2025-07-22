@@ -100,7 +100,7 @@ namespace VotacionMVC.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ModelState.AddModelError(string.Empty, "Error al eliminar el partido");
-            // Para mostrar el detalle nuevamente si falla la eliminación
+        
             var partido = await _httpClient.GetFromJsonAsync<PartidoViewModel>($"partido/{id}");
             return View("Delete", partido);
         }

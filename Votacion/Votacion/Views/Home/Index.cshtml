@@ -40,7 +40,7 @@
                     <i class="fas fa-flag fa-3x text-success mb-3"></i>
                     <h5 class="card-title">Gestión de Partidos</h5>
                     <p class="card-text">Administre los partidos políticos disponibles para votación.</p>
-                    <a href="#" class="btn btn-success">
+                    <a asp-controller="Partido" asp-action="Index" class="btn btn-success">
                         <i class="fas fa-flag"></i> Gestionar Partidos
                     </a>
                 </div>
@@ -53,63 +53,11 @@
                     <i class="fas fa-vote-yea fa-3x text-warning mb-3"></i>
                     <h5 class="card-title">Gestión de Votos</h5>
                     <p class="card-text">Visualice y administre los votos emitidos en el sistema.</p>
-                    <a href="#" class="btn btn-warning">
+                    <a asp-controller="Voto" asp-action="Index" class="btn btn-warning">
                         <i class="fas fa-vote-yea"></i> Gestionar Votos
                     </a>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">
-                        <i class="fas fa-chart-bar"></i> Estadísticas Rápidas
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <div class="row text-center">
-                        <div class="col-md-3">
-                            <div class="border rounded p-3">
-                                <h3 class="text-primary" id="totalVotantes">-</h3>
-                                <p class="text-muted">Total Votantes</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="border rounded p-3">
-                                <h3 class="text-success" id="votantesQueVotaron">-</h3>
-                                <p class="text-muted">Ya Votaron</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="border rounded p-3">
-                                <h3 class="text-warning" id="votantesPendientes">-</h3>
-                                <p class="text-muted">Pendientes</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="border rounded p-3">
-                                <h3 class="text-info" id="totalPartidos">-</h3>
-                                <p class="text-muted">Partidos</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            // Cargar estadísticas desde el servidor
-            $('#totalVotantes').text('@(ViewBag.VotantesCount ?? 0)');
-            $('#votantesQueVotaron').text('0');
-            $('#votantesPendientes').text('0');
-            $('#totalPartidos').text('0');
-        });
-    </script>
-}

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using VotacionDAL.Repositories.Voto;
-using VotacionObjetos.ViewModelos;
+using VotacionObjetos.ViewModels;
 
 namespace VotacionBLL.Services.Voto
 {

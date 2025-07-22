@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using VotacionObjetos.ViewModelos;
+using VotacionObjetos.ViewModels;
 
 namespace VotacionBLL.Services.Voto
 {
@@ -12,6 +10,6 @@ namespace VotacionBLL.Services.Voto
         Task<List<VotoViewModel>> ObtenerTodosAsync();
         Task<VotoViewModel> ObtenerPorIdAsync(int id);
         Task<VotoViewModel> ObtenerPorCedulaAsync(string cedula);
-        Task<VotoViewModel> RegistrarVotoAsync(VotoViewModel voto);
+        Task<VotoViewModel> RegistrarVotoAsync(VotoViewModel votoVm);
     }
 }

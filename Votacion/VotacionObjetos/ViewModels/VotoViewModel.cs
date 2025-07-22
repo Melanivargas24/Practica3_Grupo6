@@ -4,22 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-    namespace VotacionObjetos.ViewModelos
+namespace VotacionObjetos.ViewModels
+{
+    public partial class VotoViewModel
     {
-        public partial class VotoViewModel
-        {
-            public int Id { get; set; }
+        public int Id { get; set; }
 
-            public string CedulaVotante { get; set; }
+        public string CedulaVotante { get; set; }
 
-            public int PartidoId { get; set; }
+        public int PartidoId { get; set; }
 
-            public DateTime Fecha { get; set; }
+        public DateTime Fecha { get; set; }
 
-            public string NombreVotante { get; set; }
-            public string NombrePartido { get; set; }
-        }
+        public string NombreVotante { get; set; }
+        public string NombrePartido { get; set; }
     }
+}
 
 

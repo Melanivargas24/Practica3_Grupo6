@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
-using VotacionObjetos.ViewModelos;
 using VotacionObjetos.ViewModels;
 
 namespace VotacionMVC.Controllers

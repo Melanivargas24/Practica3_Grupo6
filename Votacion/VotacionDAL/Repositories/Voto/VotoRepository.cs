@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace VotacionDAL.Repositories.Voto
 {
@@ -30,9 +31,29 @@ namespace VotacionDAL.Repositories.Voto
 
         public async Task<VotacionObjetos.Models.Voto> RegistrarVotoAsync(VotacionObjetos.Models.Voto voto)
         {
-            _context.Votos.Add(voto);
-            await _context.SaveChangesAsync();
-            return voto;
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+
+                voto.Fecha = DateTime.Now;
+                _context.Votos.Add(voto);
+                await _context.SaveChangesAsync();
+
+                var votante = await _context.Votantes.FirstOrDefaultAsync(v => v.Cedula == voto.CedulaVotante);
+                if (votante != null)
+                {
+                    votante.SiVoto = true;
+                    await _context.SaveChangesAsync();
+                }
+
+                await transaction.CommitAsync();
+                return voto;
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
     }
 }
